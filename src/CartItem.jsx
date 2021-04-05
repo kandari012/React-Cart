@@ -12,6 +12,10 @@ class CartItem extends React.Component {
       img: "",
     };
   }
+//use arrow fxnno need to binding fxn with this
+  increaseQuantity = () => {
+    console.log(this.state);
+  };
   // inherit from class component from reat package
   render() {
     const { price, title, qty } = this.state; // object destructuring
@@ -32,18 +36,20 @@ class CartItem extends React.Component {
           <div className="cart-item-actions">
             {/* {add buttons} */}
             <img
-              src="https://www.flaticon.com/svg/vstatic/svg/32/32563.svg?token=exp=1617639776~hmac=32812420a39c29ffebf0a0121f4f8ba7"
+              src="https://www.flaticon.com/svg/vstatic/svg/1237/1237946.svg?token=exp=1617642314~hmac=584195f49ca6878a19183f9b6011c3e1"
               alt="increase"
               className="action-icons"
+              onClick={this.increaseQuantity}
+              //   {adding onclick event on img}
             />
             <img
-              src="https://www.flaticon.com/svg/vstatic/svg/56/56889.svg?token=exp=1617640457~hmac=390c58934e7a5079a4bff0247a5b53f0"
+              src="https://www.flaticon.com/svg/vstatic/svg/56/56889.svg?token=exp=1617642348~hmac=be6f054fe8a8fac0e4cc959736d05e9a"
               alt="decrease"
               className="action-icons"
             />
             <img
-              src="https://www.flaticon.com/svg/vstatic/svg/1214/1214428.svg?token=exp=1617640513~hmac=f632e0faafd3607ff50084f42166140c"
-              alt="decrease"
+              src="https://www.flaticon.com/premium-icon/icons/svg/2907/2907762.svg"
+              alt="delete"
               className="action-icons"
             />
           </div>
