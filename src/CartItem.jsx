@@ -12,8 +12,30 @@ class CartItem extends React.Component {
       img: "",
     };
   }
-//use arrow fxnno need to binding fxn with this
+  //use arrow fxnno need to binding fxn with this
   increaseQuantity = () => {
+    //set state form 1
+    // set state is inherited from react.component
+    // will pass object to the setstate fxn
+    // calling setstae triggers a rerender of the page with updated state value
+
+    // this.setState({
+    //   qty: this.state.qty + 1,
+    // });
+
+    //when need to use old state
+    // pass fxn instead of object
+    //set state form 2
+    this.setState((prevState) => {
+      return { qty: prevState.qty + 1 };
+    });
+    console.log(this.state);
+  };
+
+  decreaseQuantity = () => {
+    this.setState((prevState) => {
+      return { qty: prevState.qty - 1 };
+    });
     console.log(this.state);
   };
   // inherit from class component from reat package
@@ -46,6 +68,7 @@ class CartItem extends React.Component {
               src="https://www.flaticon.com/svg/vstatic/svg/56/56889.svg?token=exp=1617642348~hmac=be6f054fe8a8fac0e4cc959736d05e9a"
               alt="decrease"
               className="action-icons"
+              onClick={this.decreaseQuantity}
             />
             <img
               src="https://www.flaticon.com/premium-icon/icons/svg/2907/2907762.svg"
