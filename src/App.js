@@ -1,9 +1,9 @@
-import CartItem from "./CartItem"; //import cartitem
+
+import Cart from "./Cart";
 function App() {
   return (
     <div className="App">
-      <CartItem />
-      {/* {use cartitem inside appcomponent} */}
+      <Cart />
     </div>
   );
 }
