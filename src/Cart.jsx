@@ -6,7 +6,7 @@ export class Cart extends Component {
     //constuctor
     super(); //need to call constructor of parent React.component
     this.state = {
-      product: [
+      products: [
         {
           price: 999,
           title: "Laptop",
@@ -32,18 +32,38 @@ export class Cart extends Component {
     };
   }
 
+  handleIncreaseQuantity = (product) => {
+    const { products } = this.state; //get the product from state
+    const index = products.indexOf(product); //find index of the product passed
+    products[index].qty += 1; //increse quantity of the product
+    //set state to rerender
+    this.setState({
+      products,
+    });
+  };
+
+  handleDecreaseQuantity = (product) => {
+    const { products } = this.state; //get the product from state
+    const index = products.indexOf(product); //find index of the product passed
+    if (products[index].qty > 0) {
+      products[index].qty -= 1; //increse quantity of the product
+      //set state to rerender
+      this.setState({
+        products,
+      });
+    }
+  };
   render() {
-    const { product } = this.state;
+    const { products } = this.state;
     return (
       <div className="cart">
-        {product.map((product) => {
+        {products.map((product) => {
           return (
             <CartItem
-              price={product.price}
-              title={product.title}
-              qty={product.qty}
-              img={product.img}
+              product={product}
               key={product.id}
+              onIncreaseQuantity={this.handleIncreaseQuantity}
+              onDecreaseQuantity={this.handleDecreaseQuantity}
             />
           );
         })}
