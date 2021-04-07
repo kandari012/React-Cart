@@ -1,17 +1,6 @@
 import React from "react"; //import react from react module
 
 class CartItem extends React.Component {
-  constructor() {
-    //constuctor
-    super(); //need to call constructor of parent React.component
-    this.state = {
-      //state
-      price: 9899,
-      title: "Mobile phone",
-      qty: 3,
-      img: "",
-    };
-  }
   //use arrow fxnno need to binding fxn with this
   increaseQuantity = () => {
     //set state form 1
@@ -43,7 +32,7 @@ class CartItem extends React.Component {
   };
   // inherit from class component from reat package
   render() {
-    const { price, title, qty } = this.state; // object destructuring
+    const { price, title, qty } = this.props; // object destructuring
     //for a class component to be reat component we give it a method render
     // return jsx that will descibe our UI
     return (
