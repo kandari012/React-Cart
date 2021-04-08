@@ -1,8 +1,7 @@
 import React from "react"; //import react from react module
 
 function CartItem(props) {
-
-  const { price, title, qty, id } = props.product;
+  const { price, title, qty, id, img } = props.product;
   const {
     onDecreaseQuantity,
     product,
@@ -16,7 +15,7 @@ function CartItem(props) {
       {/* {use css from index.js} */}
       <div className="left-block">
         {/* {need to pass object to style will use {} and iside this will use js code} */}
-        <img style={styles.image} src="" alt="" />
+        <img style={styles.image} src={img} alt="" />
       </div>
       <div className="right-block">
         {/* {another way of adding styles} */}

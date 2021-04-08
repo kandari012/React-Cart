@@ -12,21 +12,24 @@ export class App extends Component {
           price: 999,
           title: "Laptop",
           qty: 3,
-          img: "",
+          img:
+            "https://images.techhive.com/images/article/2016/04/hp-envy-15.6_nontouch_left-facing-100654399-orig.jpg",
           id: 1,
         },
         {
           price: 989,
           title: "Mobile phone",
           qty: 7,
-          img: "",
+          img:
+            "https://n1.sdlcdn.com/imgs/a/l/r/Swipe-Konnect-4E-Blue-Mobile-SDL545020952-1-5fb23.jpg",
           id: 2,
         },
         {
           price: 9899,
           title: "TV",
           qty: 8,
-          img: "",
+          img:
+            "https://th.bing.com/th/id/OIP.3v8lhMz35V7l8bWLbVmuEwHaE4?pid=ImgDet&rs=1",
           id: 3,
         },
       ],
@@ -75,6 +78,15 @@ export class App extends Component {
     return count;
   };
 
+  getCartTotal = () => {
+    const { products } = this.state;
+    let cartTotal = 0;
+    products.map((product) => {
+      cartTotal = cartTotal + product.qty * product.price;
+    });
+    return cartTotal;
+  };
+
   render() {
     const { products } = this.state;
     return (
@@ -86,6 +98,9 @@ export class App extends Component {
           onDeleteQuantity={this.handleDeleteProduct}
           products={products}
         />
+        <div style={{ padding: 10, fontSize: 20 }}>
+          TOTAL : {this.getCartTotal()}
+        </div>
       </div>
     );
   }
