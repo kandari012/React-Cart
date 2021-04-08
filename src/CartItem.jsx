@@ -3,7 +3,13 @@ import React from "react"; //import react from react module
 class CartItem extends React.Component {
   // inherit from class component from reat package
   render() {
-    const { price, title, qty, onIncreaseQuantity } = this.props.product; // object destructuring
+    const { price, title, qty, id } = this.props.product;
+    const {
+      onDecreaseQuantity,
+      product,
+      onIncreaseQuantity,
+      onDeleteQuantity,
+    } = this.props; // object destructuring
     //for a class component to be reat component we give it a method render
     // return jsx that will descibe our UI
     return (
@@ -26,7 +32,7 @@ class CartItem extends React.Component {
               className="action-icons"
               // {fxn will be called whenever we call the plus}
               onClick={() => {
-                this.props.onIncreaseQuantity(this.props.product);
+                onIncreaseQuantity(product);
               }}
               //   {adding onclick event on img}
             />
@@ -35,13 +41,16 @@ class CartItem extends React.Component {
               alt="decrease"
               className="action-icons"
               onClick={() => {
-                this.props.onDecreaseQuantity(this.props.product);
+                onDecreaseQuantity(product);
               }}
             />
             <img
               src="https://www.flaticon.com/premium-icon/icons/svg/2907/2907762.svg"
               alt="delete"
               className="action-icons"
+              onClick={() => {
+                onDeleteQuantity(id);
+              }}
             />
           </div>
         </div>

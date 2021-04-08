@@ -53,6 +53,16 @@ export class Cart extends Component {
       });
     }
   };
+
+  handleDeleteProduct = (id) => {
+    const { products } = this.state;
+    //finf the products whose id not equal to passed id
+    // will return array of products whose is not deleted
+    // need to check the syntex
+    const items = products.filter((item) => item.id !== id);
+
+    this.setState({ products: items });
+  };
   render() {
     const { products } = this.state;
     return (
@@ -64,6 +74,7 @@ export class Cart extends Component {
               key={product.id}
               onIncreaseQuantity={this.handleIncreaseQuantity}
               onDecreaseQuantity={this.handleDecreaseQuantity}
+              onDeleteQuantity={this.handleDeleteProduct}
             />
           );
         })}
