@@ -41,6 +41,7 @@ export class App extends Component {
     this.db
       .collection("products")
       .add({
+        //object
         img: "",
         price: 900,
         qty: 4,
@@ -57,22 +58,35 @@ export class App extends Component {
   handleIncreaseQuantity = (product) => {
     const { products } = this.state; //get the product from state
     const index = products.indexOf(product); //find index of the product passed
-    products[index].qty += 1; //increse quantity of the product
-    //set state to rerender
-    this.setState({
-      products,
-    });
+
+    const docRef = this.db.collection("products").doc(products[index].id); //get the product by id
+
+    //update fetched product
+    docRef
+      .update({ qty: products[index].qty + 1 })
+      .then(() => {
+        console.log("updated");
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
   };
 
   handleDecreaseQuantity = (product) => {
     const { products } = this.state; //get the product from state
     const index = products.indexOf(product); //find index of the product passed
     if (products[index].qty > 0) {
-      products[index].qty -= 1; //increse quantity of the product
-      //set state to rerender
-      this.setState({
-        products,
-      });
+      const docRef = this.db.collection("products").doc(products[index].id); //get the product by id
+
+      //update fetched product
+      docRef
+        .update({ qty: products[index].qty - 1 })
+        .then(() => {
+          console.log("updated");
+        })
+        .catch((error) => {
+          console.log("Error", error);
+        });
     }
   };
 
