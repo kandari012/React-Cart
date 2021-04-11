@@ -17,8 +17,8 @@ export class App extends Component {
     firebase
       .firestore()
       .collection("products") //on which collection the query need to done
-      .get() //will return a promise as a result in promise will give a query snapshot
-      .then((snapshot) => {
+      .onSnapshot((snapshot) => {
+        // will be called whenever there is a change in firebase no need to refresh
         console.log(snapshot); // snapshot of the collection
 
         // itreate over all the docs inside the collection
