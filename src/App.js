@@ -11,11 +11,11 @@ export class App extends Component {
       products: [],
       loading: true,
     };
+    this.db = firebase.firestore();
   }
   //will load the products from firebase
   componentDidMount() {
-    firebase
-      .firestore()
+    this.db
       .collection("products") //on which collection the query need to done
       .onSnapshot((snapshot) => {
         // will be called whenever there is a change in firebase no need to refresh
@@ -36,6 +36,23 @@ export class App extends Component {
         this.setState({ products, loading: false });
       });
   }
+
+  addProduct = () => {
+    this.db
+      .collection("products")
+      .add({
+        img: "",
+        price: 900,
+        qty: 4,
+        title: "washing machine",
+      })
+      .then((docRef) => {
+        console.log("product has been added", docRef);
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
+  };
 
   handleIncreaseQuantity = (product) => {
     const { products } = this.state; //get the product from state
@@ -94,6 +111,9 @@ export class App extends Component {
     return (
       <div className="App">
         <Navbar count={this.getCartCount} />
+        <button onClick={this.addProduct} style={{ padding: 20, fontSize: 20 }}>
+          Add a product
+        </button>
         <Cart
           onIncreaseQuantity={this.handleIncreaseQuantity}
           onDecreaseQuantity={this.handleDecreaseQuantity}
