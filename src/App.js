@@ -91,13 +91,17 @@ export class App extends Component {
   };
 
   handleDeleteProduct = (id) => {
-    const { products } = this.state;
-    //finf the products whose id not equal to passed id
-    // will return array of products whose is not deleted
-    // need to check the syntex
-    const items = products.filter((item) => item.id !== id);
+    const docRef = this.db.collection("products").doc(id); //get the product by id
 
-    this.setState({ products: items });
+    //delete fetched product
+    docRef
+      .delete()
+      .then(() => {
+        console.log("updated");
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
   };
 
   getCartCount = () => {
