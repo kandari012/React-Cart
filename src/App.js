@@ -1,39 +1,40 @@
 import Navbar from "./Navbar";
 import Cart from "./Cart";
 import React, { Component } from "react";
+import firebase from "firebase";
 
 export class App extends Component {
   constructor() {
     //constuctor
     super(); //need to call constructor of parent React.component
     this.state = {
-      products: [
-        {
-          price: 999,
-          title: "Laptop",
-          qty: 3,
-          img:
-            "https://images.techhive.com/images/article/2016/04/hp-envy-15.6_nontouch_left-facing-100654399-orig.jpg",
-          id: 1,
-        },
-        {
-          price: 989,
-          title: "Mobile phone",
-          qty: 7,
-          img:
-            "https://n1.sdlcdn.com/imgs/a/l/r/Swipe-Konnect-4E-Blue-Mobile-SDL545020952-1-5fb23.jpg",
-          id: 2,
-        },
-        {
-          price: 9899,
-          title: "TV",
-          qty: 8,
-          img:
-            "https://th.bing.com/th/id/OIP.3v8lhMz35V7l8bWLbVmuEwHaE4?pid=ImgDet&rs=1",
-          id: 3,
-        },
-      ],
+      products: [],
+      loading: true,
     };
+  }
+  //will load the products from firebase
+  componentDidMount() {
+    firebase
+      .firestore()
+      .collection("products") //on which collection the query need to done
+      .get() //will return a promise as a result in promise will give a query snapshot
+      .then((snapshot) => {
+        console.log(snapshot); // snapshot of the collection
+
+        // itreate over all the docs inside the collection
+        snapshot.docs.map((doc) => {
+          console.log(doc.data()); //retrive all the data from document as an object
+        });
+        // add all the data in product and id seperately
+        const products = snapshot.docs.map((doc) => {
+          const data = doc.data();
+          data["id"] = doc.id;
+          console.log(doc.data());
+          return data;
+        });
+
+        this.setState({ products, loading: false });
+      });
   }
 
   handleIncreaseQuantity = (product) => {
@@ -89,7 +90,7 @@ export class App extends Component {
   };
 
   render() {
-    const { products } = this.state;
+    const { products, loading } = this.state;
     return (
       <div className="App">
         <Navbar count={this.getCartCount} />
@@ -99,6 +100,7 @@ export class App extends Component {
           onDeleteQuantity={this.handleDeleteProduct}
           products={products}
         />
+        {loading && <h1>Loading.....</h1>}
         <div style={{ padding: 10, fontSize: 20 }}>
           TOTAL : {this.getCartTotal()}
         </div>
